@@ -1,4 +1,5 @@
 
+"use client"
 import { Button } from "@/components/ui/button"
 import { 
   ChevronRight, 
@@ -6,10 +7,18 @@ import {
   Plus,
   ThumbsUp,
   ChevronDown,
-  LucideIcon
+  LucideIcon,
+  Video
 
 } from "lucide-react"
 import Image from "next/image"
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card"
+import { useState } from "react"
+
 
 function Videobuttons({Icon, color}: any) {
   const color_style = color ? "bg-white" : "bg-zinc-900"
@@ -22,19 +31,8 @@ function Videobuttons({Icon, color}: any) {
 }
 
 
-export default function Dashboard() {
-
+function VideoModal() {
   return (
-    <div className="flex flex-col w-80">
-      <div>
-        <Image 
-          src="/samurai.jpeg"
-          width={500}
-          height={500}
-          className="w-80"
-          alt="Picture of the author"
-        />
-      </div>
       <div className="bg-zinc-900">
         <div className="flex flex-row justify-between pt-4 w-80">
           <div className="flex space-x-2 ml-4">
@@ -55,7 +53,42 @@ export default function Dashboard() {
             </div>
         </div>
       </div>
-   </div>
+  )
+}
+
+function VideoImage() {
+  return (
+    
+      <div>
+        <Image 
+          src="/samurai.jpeg"
+          width={500}
+          height={500}
+          className="w-80"
+          alt="Picture of the author"
+        />
+      </div>
+  )
+}
+
+export default function Dashboard() {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+      <div className="flex flex-col w-80"
+     
+      >
+          <div
+           onMouseEnter={() => setIsHovered(true)}
+           onMouseLeave={() => setIsHovered(false)}
+           className={`scale-${isHovered ? '100' : '50'} transition ease-in-out delay-150  `}
+           >
+            <VideoImage />
+          </div>
+          <div className={`opacity-${isHovered ? '100' : '0'} transition ease-in-out delay-150 `} >
+            <VideoModal />
+          </div>
+        </div>
   )
 }
 
